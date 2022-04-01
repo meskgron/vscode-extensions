@@ -162,9 +162,9 @@ describe('objToString', () => {
     c: 'mary',
     d: 'fred',
     g: ['m', 2, 'j', {
-  h: 2,
-  q: 3,
-}],
+      h: 2,
+      q: 3,
+    }],
     someShortHand,
   },
 }`);
