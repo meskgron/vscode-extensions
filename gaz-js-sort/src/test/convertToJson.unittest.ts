@@ -30,6 +30,18 @@ describe('convertJavascriptObjectStringToJson', () => {
 "someKey": "someValue"}`);
   });
 
+  it('single key with variable value', () => {
+    // Arrange
+    const selectedText = '{ someKey: SomeEnum.SomeValue }';
+
+    // Act
+    const jsonString = convertJavascriptObjectStringToJson(selectedText);
+
+    // Assert
+    expect(jsonString).to.equal(`{
+"someKey": "__VARIABLE_VALUE__SomeEnum.SomeValue" }`);
+  });
+
   it('key in shorthand', () => {
     // Arrange
     const selectedText = `{ 
@@ -155,6 +167,7 @@ describe('convertJavascriptObjectStringToJson', () => {
         ...zzzSomeSpread,
         ...aaaSomeSpread,
         someShortHand,
+        someKey: SomeEnum.SomeValue,
         d: "fred",
         g: ["m", 2, "j", { q: 3, h: 2 }],
         c: "mary",
@@ -171,10 +184,11 @@ describe('convertJavascriptObjectStringToJson', () => {
 "___1zzzSomeSpread": "__DUMMY_SPREAD_VALUE__", 
 "___2aaaSomeSpread": "__DUMMY_SPREAD_VALUE__",
 "someShortHand": "__DUMMY_VALUE__",
+"someKey": "__VARIABLE_VALUE__SomeEnum.SomeValue",
 "d": "fred",
 "g": ["m", 2, "j", {
-"q": 3,
-"h": 2 }],
+"q": "__VARIABLE_VALUE__3",
+"h": "__VARIABLE_VALUE__2" }],
 "c": "mary"
       },
 "a": "john"

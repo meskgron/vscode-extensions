@@ -24,7 +24,9 @@ export const objToStringNested = (obj: any, level: number): string =>
     if (val instanceof Array) {
       valueString = `[${convertArrayToString(val, level)}]`;
     } else if (typeof val === 'string') {
-      valueString = `'${val}'`;
+      valueString = val.startsWith('__VARIABLE_VALUE__')
+        ? val.replace(/(^__VARIABLE_VALUE__)/g, '')
+        : `'${val}'`;
     } else if (val instanceof Object) {
       valueString = `{\n${objToStringNested(val, level + 1)}${indent}}`;
     } else {

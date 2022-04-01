@@ -29,6 +29,19 @@ describe('objToString', () => {
 }`);
   });
 
+  it('single key with variable value', () => {
+    // Arrange
+    const orderedObject = { someKey: '__VARIABLE_VALUE__SomeEnum.SomeValue' };
+
+    // Act
+    const jsonString = objToString(orderedObject);
+
+    // Assert
+    expect(jsonString).to.equal(`{
+  someKey: SomeEnum.SomeValue,
+}`);
+  });
+
   it('key in shorthand', () => {
     // Arrange
     const orderedObject = { someKey: '__DUMMY_VALUE__' };
@@ -147,6 +160,7 @@ describe('objToString', () => {
             q: 3,
           },
         ],
+        someKeyWithVariable: '__VARIABLE_VALUE__SomeEnum.SomeValue',
         someShortHand: '__DUMMY_VALUE__',
       },
     };
@@ -165,6 +179,7 @@ describe('objToString', () => {
       h: 2,
       q: 3,
     }],
+    someKeyWithVariable: SomeEnum.SomeValue,
     someShortHand,
   },
 }`);
