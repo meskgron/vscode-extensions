@@ -26,8 +26,7 @@ describe('convertJavascriptObjectStringToJson', () => {
     const jsonString = convertJavascriptObjectStringToJson(selectedText);
 
     // Assert
-    expect(jsonString).to.equal(`{
-"someKey": "someValue"}`);
+    expect(jsonString).to.equal('{ "someKey": "someValue"}');
   });
 
   it('single key with variable value', () => {
@@ -38,13 +37,14 @@ describe('convertJavascriptObjectStringToJson', () => {
     const jsonString = convertJavascriptObjectStringToJson(selectedText);
 
     // Assert
-    expect(jsonString).to.equal(`{
-"someKey": "__VARIABLE_VALUE__SomeEnum.SomeValue" }`);
+    expect(jsonString).to.equal(
+      '{ "someKey": "__VARIABLE_VALUE__SomeEnum.SomeValue" }'
+    );
   });
 
   it('key in shorthand', () => {
     // Arrange
-    const selectedText = `{ 
+    const selectedText = `{
       someKey,
     }`;
 
@@ -52,9 +52,46 @@ describe('convertJavascriptObjectStringToJson', () => {
     const jsonString = convertJavascriptObjectStringToJson(selectedText);
 
     // Assert
-    expect(jsonString).to.equal(`{
-"someKey": "__DUMMY_VALUE__" 
-    }`);
+    expect(JSON.stringify(jsonString)).to.equal(
+      JSON.stringify(`{
+      "someKey": "__DUMMY_VALUE__"
+    }`)
+    );
+  });
+
+  it('key in shorthand with trailing whitespace', () => {
+    // Arrange
+    const whitespace = '    ';
+    const selectedText = `{
+      someKey,${whitespace}
+    }`;
+
+    // Act
+    const jsonString = convertJavascriptObjectStringToJson(selectedText);
+
+    // Assert
+    expect(JSON.stringify(jsonString)).to.equal(
+      JSON.stringify(`{
+      "someKey": "__DUMMY_VALUE__"${whitespace}
+    }`)
+    );
+  });
+
+  it('variable in value', () => {
+    // Arrange
+    const selectedText = `{
+      someKey: SomeEnum.SomeValue,
+    }`;
+
+    // Act
+    const jsonString = convertJavascriptObjectStringToJson(selectedText);
+
+    // Assert
+    expect(JSON.stringify(jsonString)).to.equal(
+      JSON.stringify(`{
+      "someKey": "__VARIABLE_VALUE__SomeEnum.SomeValue"
+    }`)
+    );
   });
 
   it('spread operator', () => {
@@ -68,13 +105,31 @@ describe('convertJavascriptObjectStringToJson', () => {
 
     // Assert
     expect(jsonString).to.equal(`{ 
-"___1someSpread": "__DUMMY_SPREAD_VALUE__" 
+      "___1someSpread": "__DUMMY_SPREAD_VALUE__"
     }`);
+  });
+
+  it('spread operator with trailing whitespace', () => {
+    // Arrange
+    const whitespace = '    ';
+    const selectedText = `{ 
+      ...someSpread,${whitespace}
+    }`;
+
+    // Act
+    const jsonString = convertJavascriptObjectStringToJson(selectedText);
+
+    // Assert
+    expect(JSON.stringify(jsonString)).to.equal(
+      JSON.stringify(`{ 
+      "___1someSpread": "__DUMMY_SPREAD_VALUE__"${whitespace}
+    }`)
+    );
   });
 
   it('array', () => {
     // Arrange
-    const selectedText = `{ 
+    const selectedText = `{
       someArray: ["b", "a"],
     }`;
 
@@ -83,13 +138,13 @@ describe('convertJavascriptObjectStringToJson', () => {
 
     // Assert
     expect(jsonString).to.equal(`{
-"someArray": ["b", "a"]
+      "someArray": ["b", "a"]
     }`);
   });
 
   it('three shorthand keys', () => {
     // Arrange
-    const selectedText = `{ 
+    const selectedText = `{
       someKey1,
       someKey2,
       someKey3,
@@ -100,15 +155,15 @@ describe('convertJavascriptObjectStringToJson', () => {
 
     // Assert
     expect(jsonString).to.equal(`{
-"someKey1": "__DUMMY_VALUE__",
-"someKey2": "__DUMMY_VALUE__",
-"someKey3": "__DUMMY_VALUE__" 
+      "someKey1": "__DUMMY_VALUE__",
+      "someKey2": "__DUMMY_VALUE__",
+      "someKey3": "__DUMMY_VALUE__"
     }`);
   });
 
   it('three spread operators', () => {
     // Arrange
-    const selectedText = `{ 
+    const selectedText = `{
       ...someSpreada,
       ...someSpreadb,
       ...someSpreadc,
@@ -118,10 +173,10 @@ describe('convertJavascriptObjectStringToJson', () => {
     const jsonString = convertJavascriptObjectStringToJson(selectedText);
 
     // Assert
-    expect(jsonString).to.equal(`{ 
-"___1someSpreada": "__DUMMY_SPREAD_VALUE__", 
-"___2someSpreadb": "__DUMMY_SPREAD_VALUE__", 
-"___3someSpreadc": "__DUMMY_SPREAD_VALUE__" 
+    expect(jsonString).to.equal(`{
+      "___1someSpreada": "__DUMMY_SPREAD_VALUE__",
+      "___2someSpreadb": "__DUMMY_SPREAD_VALUE__",
+      "___3someSpreadc": "__DUMMY_SPREAD_VALUE__"
     }`);
   });
 
@@ -146,16 +201,16 @@ describe('convertJavascriptObjectStringToJson', () => {
 
     // Assert
     expect(jsonString).to.equal(`{
-"someKey3": "someValue3",
-"someKey1": "someValue1",
-"someKey2": {
-"someNestedKey6": "someNestedValue6",
-"someNestedKey4": {
-"someNestedKey9": "someNestedValue9",
-"someNestedKey7": "someNestedValue7",
-"someNestedKey8": "someNestedValue8"
+      "someKey3": "someValue3",
+      "someKey1": "someValue1",
+      "someKey2": {
+        "someNestedKey6": "someNestedValue6",
+        "someNestedKey4": {
+          "someNestedKey9": "someNestedValue9",
+          "someNestedKey7": "someNestedValue7",
+          "someNestedKey8": "someNestedValue8"
         },
-"someNestedKey5": "someNestedValue5"
+        "someNestedKey5": "someNestedValue5"
       }
     }`);
   });
@@ -179,20 +234,20 @@ describe('convertJavascriptObjectStringToJson', () => {
     const jsonString = convertJavascriptObjectStringToJson(selectedText);
 
     // Assert
-    expect(jsonString).to.equal(`{
-"b": {
-"___1zzzSomeSpread": "__DUMMY_SPREAD_VALUE__", 
-"___2aaaSomeSpread": "__DUMMY_SPREAD_VALUE__",
-"someShortHand": "__DUMMY_VALUE__",
-"someKey": "__VARIABLE_VALUE__SomeEnum.SomeValue",
-"d": "fred",
-"g": ["m", 2, "j", {
-"q": "__VARIABLE_VALUE__3",
-"h": "__VARIABLE_VALUE__2" }],
-"c": "mary"
+    expect(JSON.stringify(jsonString)).to.equal(
+      JSON.stringify(`{
+      "b": {
+        "___1zzzSomeSpread": "__DUMMY_SPREAD_VALUE__",
+        "___2aaaSomeSpread": "__DUMMY_SPREAD_VALUE__",
+        "someShortHand": "__DUMMY_VALUE__",
+        "someKey": "__VARIABLE_VALUE__SomeEnum.SomeValue",
+        "d": "fred",
+        "g": ["m", 2, "j", { "q": "__VARIABLE_VALUE__3", "h": "__VARIABLE_VALUE__2" }],
+        "c": "mary"
       },
-"a": "john"
-    }`);
+      "a": "john"
+    }`)
+    );
   });
 });
 
