@@ -42,6 +42,19 @@ describe('convertJavascriptObjectStringToJson', () => {
     );
   });
 
+  it('single key with value from new class', () => {
+    // Arrange
+    const selectedText = '{ someKey: new SomeClass() }';
+
+    // Act
+    const jsonString = convertJavascriptObjectStringToJson(selectedText);
+
+    // Assert
+    expect(jsonString).to.equal(
+      '{ "someKey": "__VARIABLE_VALUE__new SomeClass()" }'
+    );
+  });
+
   it('key in shorthand', () => {
     // Arrange
     const selectedText = `{

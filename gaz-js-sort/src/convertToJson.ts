@@ -13,6 +13,10 @@ export const convertJavascriptObjectStringToJson = (
     .replace(/^(\s*)\.\.\.(\w+),(\s*)$/gm, spreadIncrementer) // spread operator ...z, becomes "___1z": "__DUMMY_SPREAD_VALUE__",
     .replace(/^(\s*)(\w+),(\s*)$/gm, '$1$2: "__DUMMY_VALUE__",$3') // convert javscript object shorthand to longhand z, becomes z: "__DUMMY_VALUE__",
     .replace(
+      /([{,]\s*)([A-Za-z0-9_\-]+?)\s*:\s*new ([A-Za-z0-9_\-]+?[^\s,}]*)(?=([\s,}]))/gm,
+      '$1$2: "__VARIABLE_VALUE__new $3"'
+    ) // javscript variable value z: new SomeClass(), becomes z: "__VARIABLE_VALUE__new SomeClass()",
+    .replace(
       /([{,]\s*)([A-Za-z0-9_\-]+?)\s*:\s*([A-Za-z0-9_\-]+?[^\s,}]*)(?=([\s,}]))/gm,
       '$1$2: "__VARIABLE_VALUE__$3"'
     ) // javscript variable value z: SomeEnum.SomeValue, becomes z: "__VARIABLE_VALUE__SomeEnum.SomeValue",
