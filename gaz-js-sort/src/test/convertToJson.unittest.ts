@@ -55,6 +55,23 @@ describe('convertJavascriptObjectStringToJson', () => {
     );
   });
 
+  it('single key with a single line comment before it', () => {
+    // Arrange
+    const selectedText = `{
+      // Single line comment
+      someKey: "someValue"
+    }`;
+
+    // Act
+    const jsonString = convertJavascriptObjectStringToJson(selectedText);
+
+    // Assert
+    expect(jsonString).to.equal(`{
+      "someKey__DUMMY_COMMENT_KEY__": "__DUMMY_COMMENT_VALUE__// Single line comment",
+      "someKey": "someValue"
+    }`);
+  });
+
   it('key in shorthand', () => {
     // Arrange
     const selectedText = `{
@@ -237,6 +254,7 @@ describe('convertJavascriptObjectStringToJson', () => {
         someShortHand,
         someKey: SomeEnum.SomeValue,
         d: "fred",
+        // Single line comment for g
         g: ["m", 2, "j", { q: 3, h: 2 }],
         c: "mary",
       },
@@ -255,6 +273,7 @@ describe('convertJavascriptObjectStringToJson', () => {
         "someShortHand": "__DUMMY_VALUE__",
         "someKey": "__VARIABLE_VALUE__SomeEnum.SomeValue",
         "d": "fred",
+        "g__DUMMY_COMMENT_KEY__": "__DUMMY_COMMENT_VALUE__// Single line comment for g",
         "g": ["m", 2, "j", { "q": "__VARIABLE_VALUE__3", "h": "__VARIABLE_VALUE__2" }],
         "c": "mary"
       },
@@ -303,7 +322,7 @@ describe('convertSelectedTextToJson', () => {
   it('spread operator', () => {
     // Arrange
     const selectedText = `{ 
-"___1someSpread": "__DUMMY_SPREAD_VALUE__" 
+      "___1someSpread": "__DUMMY_SPREAD_VALUE__" 
     }`;
 
     // Act
@@ -316,7 +335,7 @@ describe('convertSelectedTextToJson', () => {
   it('array', () => {
     // Arrange
     const selectedText = `{
-"someArray": ["b", "a"]
+      "someArray": ["b", "a"]
     }`;
 
     // Act
@@ -348,9 +367,9 @@ describe('convertSelectedTextToJson', () => {
   it('three spread operators', () => {
     // Arrange
     const selectedText = `{ 
-"___1someSpreada": "__DUMMY_SPREAD_VALUE__", 
-"___2someSpreadb": "__DUMMY_SPREAD_VALUE__", 
-"___3someSpreadc": "__DUMMY_SPREAD_VALUE__" 
+      "___1someSpreada": "__DUMMY_SPREAD_VALUE__", 
+      "___2someSpreadb": "__DUMMY_SPREAD_VALUE__", 
+      "___3someSpreadc": "__DUMMY_SPREAD_VALUE__" 
     }`;
 
     // Act
@@ -367,16 +386,16 @@ describe('convertSelectedTextToJson', () => {
   it('3 levels of nested objects', () => {
     // Arrange
     const selectedText = `{
-"someKey3": "someValue3",
-"someKey1": "someValue1",
-"someKey2": {
-"someNestedKey6": "someNestedValue6",
-"someNestedKey4": {
-"someNestedKey9": "someNestedValue9",
-"someNestedKey7": "someNestedValue7",
-"someNestedKey8": "someNestedValue8"
+      "someKey3": "someValue3",
+      "someKey1": "someValue1",
+      "someKey2": {
+        "someNestedKey6": "someNestedValue6",
+        "someNestedKey4": {
+          "someNestedKey9": "someNestedValue9",
+          "someNestedKey7": "someNestedValue7",
+          "someNestedKey8": "someNestedValue8"
         },
-"someNestedKey5": "someNestedValue5"
+        "someNestedKey5": "someNestedValue5"
       }
     }`;
 
@@ -402,17 +421,19 @@ describe('convertSelectedTextToJson', () => {
   it('complex example', () => {
     // Arrange
     const selectedText = `{
-"b": {
-"___1zzzSomeSpread": "__DUMMY_SPREAD_VALUE__", 
-"___2aaaSomeSpread": "__DUMMY_SPREAD_VALUE__",
-"someShortHand": "__DUMMY_VALUE__",
-"d": "fred",
-"g": ["m", 2, "j", {
-"q": 3,
-"h": 2 }],
-"c": "mary"
+      "b": {
+        "___1zzzSomeSpread": "__DUMMY_SPREAD_VALUE__", 
+        "___2aaaSomeSpread": "__DUMMY_SPREAD_VALUE__",
+        "someShortHand": "__DUMMY_VALUE__",
+        "d": "fred",
+        "g__DUMMY_COMMENT_KEY__": "__DUMMY_COMMENT_VALUE__// Single line comment for g",  
+        "g": ["m", 2, "j", {
+          "q": 3,
+          "h": 2 
+        }],
+        "c": "mary"
       },
-"a": "john"
+      "a": "john"
     }`;
 
     // Act
@@ -425,6 +446,8 @@ describe('convertSelectedTextToJson', () => {
         ___2aaaSomeSpread: '__DUMMY_SPREAD_VALUE__',
         someShortHand: '__DUMMY_VALUE__',
         d: 'fred',
+        g__DUMMY_COMMENT_KEY__:
+          '__DUMMY_COMMENT_VALUE__// Single line comment for g',
         g: ['m', 2, 'j', { q: 3, h: 2 }],
         c: 'mary',
       },

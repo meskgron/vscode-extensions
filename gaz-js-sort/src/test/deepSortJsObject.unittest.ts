@@ -53,6 +53,33 @@ describe('deepSortJsObject', () => {
     expect(JSON.stringify(orderedObject)).to.equal(expected);
   });
 
+  it('three keys, one with a single line comment', () => {
+    // Arrange
+    const unOrderedObject: any = {
+      someKey3: 'Some value 3',
+      someKey1__DUMMY_COMMENT_KEY__:
+        '__DUMMY_COMMENT_VALUE__// Single line comment for someKey 1',
+      someKey1: 'Some value 1',
+      someKey2: 'Some value 2',
+    };
+
+    // Act
+    const orderedObject: any = deepSortJsObject(unOrderedObject);
+
+    // Assert
+
+    // GBB: Need to have somekey1_ sort before somekey1 or add comment to the next value
+    const expected = JSON.stringify({
+      someKey1__DUMMY_COMMENT_KEY__:
+        '__DUMMY_COMMENT_VALUE__// Single line comment for someKey 1',
+      someKey1: 'Some value 1',
+      someKey2: 'Some value 2',
+      someKey3: 'Some value 3',
+    });
+
+    expect(JSON.stringify(orderedObject)).to.equal(expected);
+  });
+
   it('three shorthand keys', () => {
     // Arrange
     const unOrderedObject: any = {
@@ -169,6 +196,8 @@ describe('deepSortJsObject', () => {
         ___2aaaSomeSpread: '__DUMMY_SPREAD_VALUE__',
         someShortHand: '__DUMMY_VALUE__',
         d: 'fred',
+        g__DUMMY_COMMENT_KEY__:
+          '__DUMMY_COMMENT_VALUE__// Single line comment for g',
         g: ['m', 2, 'j', { q: 3, h: 2 }],
         c: 'mary',
       },
@@ -186,6 +215,8 @@ describe('deepSortJsObject', () => {
         ___2aaaSomeSpread: '__DUMMY_SPREAD_VALUE__',
         c: 'mary',
         d: 'fred',
+        g__DUMMY_COMMENT_KEY__:
+          '__DUMMY_COMMENT_VALUE__// Single line comment for g',
         g: [
           'm',
           2,

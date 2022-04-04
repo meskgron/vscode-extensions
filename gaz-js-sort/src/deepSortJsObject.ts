@@ -1,6 +1,27 @@
+const comparer = (a: string, b: string): number => {
+  if (a.startsWith(b) && a.endsWith('__DUMMY_COMMENT_KEY__')) {
+    return -1;
+  }
+
+  if (b.startsWith(a) && b.endsWith('__DUMMY_COMMENT_KEY__')) {
+    return 1;
+  }
+
+  if (a < b) {
+    return -1;
+  }
+
+  if (a > b) {
+    return 1;
+  }
+
+  // a must be equal to b
+  return 0;
+};
+
 const deepSortJsObject = (unorderedObject: any): any =>
   Object.keys(unorderedObject)
-    .sort()
+    .sort(comparer)
     .reduce((acc: any, key: string) => {
       const unorderedValue = unorderedObject[key];
       let orderedValue = undefined;

@@ -42,6 +42,24 @@ describe('objToString', () => {
 }`);
   });
 
+  it('single key with single line comment', () => {
+    // Arrange
+    const orderedObject = {
+      someKey__DUMMY_COMMENT_KEY__:
+        '__DUMMY_COMMENT_VALUE__// Single line comment',
+      someKey: 'someValue',
+    };
+
+    // Act
+    const jsonString = objToString(orderedObject);
+
+    // Assert
+    expect(jsonString).to.equal(`{
+  // Single line comment
+  someKey: 'someValue',
+}`);
+  });
+
   it('key in shorthand', () => {
     // Arrange
     const orderedObject = { someKey: '__DUMMY_VALUE__' };
@@ -151,6 +169,8 @@ describe('objToString', () => {
         ___1zzzSomeSpread: '__DUMMY_SPREAD_VALUE__',
         c: 'mary',
         d: 'fred',
+        g__DUMMY_COMMENT_KEY__:
+          '__DUMMY_COMMENT_VALUE__// Single line comment for g',
         g: [
           'm',
           2,
@@ -175,6 +195,7 @@ describe('objToString', () => {
     ...zzzSomeSpread,
     c: 'mary',
     d: 'fred',
+    // Single line comment for g
     g: ['m', 2, 'j', {
       h: 2,
       q: 3,

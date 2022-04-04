@@ -35,18 +35,22 @@ export const objToStringNested = (obj: any, level: number): string =>
 
     let keyAndValue = undefined;
 
-    switch (valueString) {
-      case `'__DUMMY_VALUE__'`:
-        keyAndValue = p;
-        break;
-      case `'__DUMMY_SPREAD_VALUE__'`:
-        keyAndValue = p.replace(/^___[1-9](\w+)/gi, '...$1');
-        break;
-      default:
-        keyAndValue = `${p}: ${valueString}`;
-        break;
+    if (valueString === `'__DUMMY_VALUE__'`) {
+      keyAndValue = `${p},`;
+    } else if (valueString === `'__DUMMY_SPREAD_VALUE__'`) {
+      keyAndValue = `${p.replace(/^___[1-9](\w+)/gi, '...$1')},`;
+    } else if (
+      typeof valueString === 'string' &&
+      valueString.startsWith(`'__DUMMY_COMMENT_VALUE__`)
+    ) {
+      keyAndValue = valueString.replace(
+        /^'__DUMMY_COMMENT_VALUE__(\/\/.*)'/gi,
+        '$1'
+      );
+    } else {
+      keyAndValue = `${p}: ${valueString},`;
     }
-    return `${acc}${indent}${keyAndValue},\n`;
+    return `${acc}${indent}${keyAndValue}\n`;
   }, '');
 
 export const objToString = (obj: any, level = 1): string => {
