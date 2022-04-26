@@ -1,23 +1,34 @@
 {
-  "name": "gbb-extensions",
-  "displayName": "GBB VS Code Extensions",
-  "description": "",
+  "name": "javascript-sort",
+  "displayName": "Javascript Sort",
+  "description": "Deeply sort the keys within a javascript object",
   "version": "0.0.1",
+  "publisher": "gaz77a",
+  "author": {
+    "name": "gaz77a"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:gaz77a/vscode-extensions.git"
+  },
+  "icon": "resources/javaScript-sort-256.png",
   "engines": {
     "vscode": "^1.60.0"
   },
   "categories": [
+    "Programming Languages",
+    "Formatters",
     "Other"
   ],
   "activationEvents": [
-    "onCommand:gbb-extensions.gazJsSort"
+    "onCommand:extension.javaScript-sort"
   ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "gbb-extensions.gazJsSort",
-        "title": "GAZ JS Sort"
+        "command": "extension.javaScript-sort",
+        "title": "JS Sort"
       }
     ]
   },
