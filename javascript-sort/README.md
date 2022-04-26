@@ -32,7 +32,7 @@ Inline and multiline comments are not currently supported
 
 ## Release Notes
 
-### 0.0.2
+### 0.0.3
 
 Initial release
 
