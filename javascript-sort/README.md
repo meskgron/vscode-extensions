@@ -1,4 +1,4 @@
-# JavaScript Sort README
+# JavaScript Sort
 
 Visual Studio Code extension to deeply sort the keys within a JavaScript object.
 
@@ -12,7 +12,7 @@ Object Property Value Shorthand keys can be sorted along with traditional key/va
 
 ### Spread Operator
 
-Spread Operators are assumed to be the first keys in an object and will be left in their origianl position.
+Spread Operators are assumed to be the first keys in an object and will be left in their original position.
 
 ![Spread Operators](images/spread-operator.png)
 
