@@ -1,11 +1,11 @@
-# JavaScript Sort
+# JavaScript Sort (`JS Sort`)
 
 Visual Studio Code extension to deeply sort the keys within a JavaScript object.
 
 ## Usage
 
 - Select a JavaScript object including the curly brackets (not a JSON object)
-- Run the extension
+- Run the extension (`JS Sort`)
 - All keys at each level will be sorted
 
 ## Features
@@ -76,7 +76,7 @@ Inline and multiline comments are not currently supported
 
 ## Release Notes
 
-### 0.0.4
+### 0.0.5
 
 Initial release
 
