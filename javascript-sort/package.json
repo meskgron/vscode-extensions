@@ -2,7 +2,7 @@
   "name": "javascript-sort",
   "displayName": "JavaScript Sort",
   "description": "Deeply sort the keys within a JavaScript (JS) object",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "publisher": "gaz77a",
   "author": {
     "name": "gaz77a"

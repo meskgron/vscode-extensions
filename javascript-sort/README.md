@@ -9,8 +9,8 @@ Visual Studio Code extension to deeply sort the keys within a JavaScript object.
 
    - `CMD+SHIFT+P` and search for `JS Sort`
    - Right Click on the highlighted code. `JS Sort` will appear at the top of the `Modification` group.
-   - `CTRL+OPTION+S` (mac)
-   - `CTRL+ALT+S` (windows)
+   - `CTRL+OPTION+COMMAND+S` (mac)
+   - `CTRL+ALT+WINDOWS+S` (windows)
 
 3. All keys at each level will be sorted
 4. It may be necessary to reformat the document
@@ -96,6 +96,8 @@ Add a keyboard shortcut.
 
 Changed the keyboard shortcut as it conflicted with Mac Keeper.
 
----
+### 0.0.8
+
+## Updated the readme for the keyboard shortcut.
 
 **Enjoy!**
