@@ -1,15 +1,15 @@
 {
   "name": "javascript-sort",
   "displayName": "JavaScript Sort",
-  "description": "Deeply sort the keys within a JavaScript object",
-  "version": "0.0.5",
+  "description": "Deeply sort the keys within a JavaScript (JS) object",
+  "version": "0.0.6",
   "publisher": "gaz77a",
   "author": {
     "name": "gaz77a"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com:gaz77a/vscode-extensions.git"
+    "url": "git+https://github.com:gaz77a/vscode-extensions.git"
   },
   "icon": "resources/javaScript-sort-256.png",
   "engines": {
@@ -28,15 +28,46 @@
     "commands": [
       {
         "command": "extension.javaScript-sort",
-        "title": "JS Sort"
+        "category": "Sort",
+        "title": "JS Sort",
+        "icon": "$(sort-precedence)"
       }
-    ]
+    ],
+    "keybindings": [
+      {
+        "command": "extension.javaScript-sort",
+        "key": "ctrl+alt+s",
+        "mac": "ctrl+alt+s"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "extension.javaScript-sort",
+          "group": "1_modification@1",
+          "when": "resourceLangId == javascript",
+          "icon": "$(sort-precedence)"
+        }
+      ]
+    }
   },
+  "galleryBanner": {
+    "color": "#21180e",
+    "theme": "dark"
+  },
+  "keywords": [
+    "javascript",
+    "js",
+    "object",
+    "sort",
+    "deep"
+  ],
   "scripts": {
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
     "pretest": "npm run compile && npm run lint",
+    "publish": "vsce publish --baseContentUrl https://github.com/gaz77a/vscode-extensions/blob/master/javascript-sort --baseImagesUrl https://github.com/gaz77a/vscode-extensions/blob/master/javascript-sort",
     "lint": "eslint src --ext ts",
     "test": "node ./out/test/runTest.js",
     "unit-test": "mocha -r ts-node/register 'src/**/*.unittest.ts'"
