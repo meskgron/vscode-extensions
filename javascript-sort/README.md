@@ -92,6 +92,10 @@ Initial release
 Add JS Sort to the top of the modification group context menu.
 Add a keyboard shortcut.
 
+### 0.0.7
+
+Changed the keyboard shortcut as it conflicted with Mac Keeper.
+
 ---
 
 **Enjoy!**
