@@ -135,7 +135,7 @@ describe('convertJavascriptObjectStringToJson', () => {
 
     // Assert
     expect(jsonString).to.equal(`{ 
-      "___1someSpread": "__DUMMY_SPREAD_VALUE__"
+      "!!!___1someSpread": "__DUMMY_SPREAD_VALUE__"
     }`);
   });
 
@@ -152,7 +152,7 @@ describe('convertJavascriptObjectStringToJson', () => {
     // Assert
     expect(JSON.stringify(jsonString)).to.equal(
       JSON.stringify(`{ 
-      "___1someSpread": "__DUMMY_SPREAD_VALUE__"${whitespace}
+      "!!!___1someSpread": "__DUMMY_SPREAD_VALUE__"${whitespace}
     }`)
     );
   });
@@ -169,6 +169,21 @@ describe('convertJavascriptObjectStringToJson', () => {
     // Assert
     expect(jsonString).to.equal(`{
       "someArray": ["b", "a"]
+    }`);
+  });
+
+  it('variable in Key', () => {
+    // Arrange
+    const selectedText = `{ 
+      [someVariableKey]: 'someValue',
+    }`;
+
+    // Act
+    const jsonString = convertJavascriptObjectStringToJson(selectedText);
+
+    // Assert
+    expect(jsonString).to.equal(`{ 
+      "someVariableKey__DUMMY_VARIABLE_KEY__": "someValue"
     }`);
   });
 
@@ -204,9 +219,9 @@ describe('convertJavascriptObjectStringToJson', () => {
 
     // Assert
     expect(jsonString).to.equal(`{
-      "___1someSpreada": "__DUMMY_SPREAD_VALUE__",
-      "___2someSpreadb": "__DUMMY_SPREAD_VALUE__",
-      "___3someSpreadc": "__DUMMY_SPREAD_VALUE__"
+      "!!!___1someSpreada": "__DUMMY_SPREAD_VALUE__",
+      "!!!___2someSpreadb": "__DUMMY_SPREAD_VALUE__",
+      "!!!___3someSpreadc": "__DUMMY_SPREAD_VALUE__"
     }`);
   });
 
@@ -268,8 +283,8 @@ describe('convertJavascriptObjectStringToJson', () => {
     expect(JSON.stringify(jsonString)).to.equal(
       JSON.stringify(`{
       "b": {
-        "___1zzzSomeSpread": "__DUMMY_SPREAD_VALUE__",
-        "___2aaaSomeSpread": "__DUMMY_SPREAD_VALUE__",
+        "!!!___1zzzSomeSpread": "__DUMMY_SPREAD_VALUE__",
+        "!!!___2aaaSomeSpread": "__DUMMY_SPREAD_VALUE__",
         "someShortHand": "__DUMMY_VALUE__",
         "someKey": "__VARIABLE_VALUE__SomeEnum.SomeValue",
         "d": "fred",
@@ -343,6 +358,21 @@ describe('convertSelectedTextToJson', () => {
 
     // Assert
     expect(jsonString).to.eql({ someArray: ['b', 'a'] });
+  });
+
+  it('variable in Key', () => {
+    // Arrange
+    const selectedText = `{ 
+      [someVariableKey]: "someValue"
+    }`;
+
+    // Act
+    const jsonString = convertSelectedTextToJson(selectedText);
+
+    // Assert
+    expect(jsonString).to.eql({
+      someVariableKey__DUMMY_VARIABLE_KEY__: 'someValue',
+    });
   });
 
   it('three shorthand keys', () => {

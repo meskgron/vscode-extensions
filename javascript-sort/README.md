@@ -77,6 +77,24 @@ becomes
         someKey2: 'someValue2',
     }
 
+### **Object Key is a variable**
+
+Object keys that are varaibles will be sorted.
+
+    const someObject = {
+        someKey3: 'someValue3',
+        [someVariable]: 'someValue1',
+        someKey2: 'someValue2',
+    }
+
+becomes
+
+    const someObject = {
+        someKey2: 'someValue2',
+        someKey3: 'someValue3',
+        [someVariable]: 'someValue1',
+    }
+
 ## Requirements
 
 No requirements.
@@ -89,24 +107,29 @@ Inline and multiline comments are not currently supported
 
 ### 0.0.5
 
-Initial release
+- Initial release
 
 ### 0.0.6
 
-Add JS Sort to the top of the modification group context menu.
-Add a keyboard shortcut.
+- Add JS Sort to the top of the modification group context menu.
+- Add a keyboard shortcut.
 
 ### 0.0.7
 
-Changed the keyboard shortcut as it conflicted with Mac Keeper.
+- Changed the keyboard shortcut as it conflicted with Mac Keeper.
 
 ### 0.0.8
 
-Updated the readme for the keyboard shortcut.
+- Updated the readme for the keyboard shortcut.
 
 ### 0.0.9
 
-Added support for typescript.
+- Added support for typescript.
+
+### 0.0.10
+
+- Perform a case insensitive sort.
+- Support keys that are variables
 
 ---
 

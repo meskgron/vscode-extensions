@@ -53,6 +53,26 @@ describe('deepSortJsObject', () => {
     expect(JSON.stringify(orderedObject)).to.equal(expected);
   });
 
+  it('variable in key', () => {
+    // Arrange
+    const unOrderedObject: any = {
+      '!!!___1someSpread': '__DUMMY_SPREAD_VALUE__',
+      B: 'someOtherValue',
+      AAA__DUMMY_VARIABLE_KEY__: 'someValue',
+    };
+
+    // Act
+    const orderedObject: any = deepSortJsObject(unOrderedObject);
+
+    // Assert
+    const expected = JSON.stringify({
+      '!!!___1someSpread': '__DUMMY_SPREAD_VALUE__',
+      AAA__DUMMY_VARIABLE_KEY__: 'someValue',
+      B: 'someOtherValue',
+    });
+    expect(JSON.stringify(orderedObject)).to.equal(expected);
+  });
+
   it('case insensitive sort', () => {
     // Arrange
     const unOrderedObject: any = {

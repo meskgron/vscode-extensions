@@ -76,7 +76,7 @@ describe('objToString', () => {
   it('spread operator', () => {
     // Arrange
     const orderedObject = {
-      ___1someSpread: '__DUMMY_SPREAD_VALUE__',
+      '!!!___1someSpread': '__DUMMY_SPREAD_VALUE__',
     };
 
     // Act
@@ -85,6 +85,21 @@ describe('objToString', () => {
     // Assert
     expect(jsonString).to.equal(`{
   ...someSpread,
+}`);
+  });
+
+  it('variable in Key', () => {
+    // Arrange
+    const orderedObject = {
+      someVariableKey__DUMMY_VARIABLE_KEY__: 'someValue',
+    };
+
+    // Act
+    const jsonString = objToString(orderedObject);
+
+    // Assert
+    expect(jsonString).to.equal(`{
+  [someVariableKey]: 'someValue',
 }`);
   });
 
@@ -110,9 +125,9 @@ describe('objToString', () => {
   it('three spread operators', () => {
     // Arrange
     const orderedObject = {
-      ___1someSpreada: '__DUMMY_SPREAD_VALUE__',
-      ___2someSpreadb: '__DUMMY_SPREAD_VALUE__',
-      ___3someSpreadc: '__DUMMY_SPREAD_VALUE__',
+      '!!!___1someSpreada': '__DUMMY_SPREAD_VALUE__',
+      '!!!___2someSpreadb': '__DUMMY_SPREAD_VALUE__',
+      '!!!___3someSpreadc': '__DUMMY_SPREAD_VALUE__',
     };
 
     // Act
@@ -166,7 +181,7 @@ describe('objToString', () => {
     const orderedObject = {
       a: 'john',
       b: {
-        ___1zzzSomeSpread: '__DUMMY_SPREAD_VALUE__',
+        '!!!___1zzzSomeSpread': '__DUMMY_SPREAD_VALUE__',
         c: 'mary',
         d: 'fred',
         g__DUMMY_COMMENT_KEY__:
