@@ -53,6 +53,26 @@ describe('deepSortJsObject', () => {
     expect(JSON.stringify(orderedObject)).to.equal(expected);
   });
 
+  it('case insensitive sort', () => {
+    // Arrange
+    const unOrderedObject: any = {
+      a: 'someValue',
+      B: 'someOtherValue',
+      A: 'someValue',
+    };
+
+    // Act
+    const orderedObject: any = deepSortJsObject(unOrderedObject);
+
+    // Assert
+    const expected = JSON.stringify({
+      a: 'someValue',
+      A: 'someValue',
+      B: 'someOtherValue',
+    });
+    expect(JSON.stringify(orderedObject)).to.equal(expected);
+  });
+
   it('three keys, one with a single line comment', () => {
     // Arrange
     const unOrderedObject: any = {

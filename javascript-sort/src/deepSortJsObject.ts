@@ -7,16 +7,7 @@ const comparer = (a: string, b: string): number => {
     return 1;
   }
 
-  if (a < b) {
-    return -1;
-  }
-
-  if (a > b) {
-    return 1;
-  }
-
-  // a must be equal to b
-  return 0;
+  return a.localeCompare(b);
 };
 
 const deepSortJsObject = (unorderedObject: any): any =>
