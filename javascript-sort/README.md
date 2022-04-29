@@ -15,6 +15,10 @@ Visual Studio Code extension to deeply sort the keys within a JavaScript object.
 3. All keys at each level will be sorted
 4. It may be necessary to reformat the document
 
+### **Note**
+
+The context menu and keyboard shortcuts are only active for JavaScript and TypeScript.
+
 ## Features
 
 ### **Object Property Value Shorthand**
@@ -98,6 +102,12 @@ Changed the keyboard shortcut as it conflicted with Mac Keeper.
 
 ### 0.0.8
 
-## Updated the readme for the keyboard shortcut.
+Updated the readme for the keyboard shortcut.
+
+### 0.0.9
+
+Added support for typescript.
+
+---
 
 **Enjoy!**

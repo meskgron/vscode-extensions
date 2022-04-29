@@ -2,7 +2,7 @@
   "name": "javascript-sort",
   "displayName": "JavaScript Sort",
   "description": "Deeply sort the keys within a JavaScript (JS) object",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "publisher": "gaz77a",
   "author": {
     "name": "gaz77a"
@@ -38,7 +38,7 @@
         "command": "extension.javaScript-sort",
         "key": "ctrl+alt+win+s",
         "mac": "ctrl+alt+cmd+s",
-        "when": "resourceLangId == javascript"
+        "when": "resourceLangId == javascript || resourceLangId == typescript"
       }
     ],
     "menus": {
@@ -46,7 +46,7 @@
         {
           "command": "extension.javaScript-sort",
           "group": "1_modification@1",
-          "when": "resourceLangId == javascript",
+          "when": "resourceLangId == javascript || resourceLangId == typescript",
           "icon": "$(sort-precedence)"
         }
       ]
@@ -61,7 +61,8 @@
     "js",
     "object",
     "sort",
-    "deep"
+    "deep",
+    "typescript"
   ],
   "scripts": {
     "vscode:prepublish": "npm run compile",
