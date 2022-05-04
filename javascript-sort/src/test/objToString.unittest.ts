@@ -103,6 +103,24 @@ describe('objToString', () => {
 }`);
   });
 
+  it('variable in Key with single line comment', () => {
+    // Arrange
+    const orderedObject = {
+      someVariableKey__DUMMY_COMMENT_KEY__:
+        '__DUMMY_COMMENT_VALUE__// Single line comment',
+      someVariableKey__DUMMY_VARIABLE_KEY__: 'someValue',
+    };
+
+    // Act
+    const jsonString = objToString(orderedObject);
+
+    // Assert
+    expect(jsonString).to.equal(`{
+  // Single line comment
+  [someVariableKey]: 'someValue',
+}`);
+  });
+
   it('three shorthand keys', () => {
     // Arrange
     const orderedObject = {

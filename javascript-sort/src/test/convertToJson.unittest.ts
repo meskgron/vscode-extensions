@@ -187,6 +187,23 @@ describe('convertJavascriptObjectStringToJson', () => {
     }`);
   });
 
+  it('variable in key with a single line comment before it', () => {
+    // Arrange
+    const selectedText = `{
+      // Single line comment
+      [someVariableKey]: "someValue"
+    }`;
+
+    // Act
+    const jsonString = convertJavascriptObjectStringToJson(selectedText);
+
+    // Assert
+    expect(jsonString).to.equal(`{
+      "someVariableKey__DUMMY_COMMENT_KEY__": "__DUMMY_COMMENT_VALUE__// Single line comment",
+      "someVariableKey__DUMMY_VARIABLE_KEY__": "someValue"
+    }`);
+  });
+
   it('three shorthand keys', () => {
     // Arrange
     const selectedText = `{
@@ -274,6 +291,8 @@ describe('convertJavascriptObjectStringToJson', () => {
         c: "mary",
       },
       a: "john",
+      // Single line comment for VariableInKey
+      [VariableInKey]: 'a value',
     }`;
 
     // Act
@@ -292,7 +311,9 @@ describe('convertJavascriptObjectStringToJson', () => {
         "g": ["m", 2, "j", { "q": "__VARIABLE_VALUE__3", "h": "__VARIABLE_VALUE__2" }],
         "c": "mary"
       },
-      "a": "john"
+      "a": "john",
+      "VariableInKey__DUMMY_COMMENT_KEY__": "__DUMMY_COMMENT_VALUE__// Single line comment for VariableInKey",
+      "VariableInKey__DUMMY_VARIABLE_KEY__": "a value"
     }`)
     );
   });

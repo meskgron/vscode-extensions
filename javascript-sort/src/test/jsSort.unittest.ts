@@ -18,6 +18,7 @@ describe('jsSort', () => {
   },
   // Single line comment for a
   a: 'someValue',
+  // Single line comment for VariableInKey
   [VariableInKey]: 'a value',
   f: SomeEnum.SomeValue,
   A: 'anotherValue',
@@ -49,6 +50,7 @@ describe('jsSort', () => {
     jsSort({ editor, showInformationMessage });
 
     // Assert
+    expect(messages).to.eql(['Sort complete']);
     expect(orderedJsonString).to.equal(
       `{
   // Single line comment for a
@@ -68,9 +70,9 @@ describe('jsSort', () => {
     someShortHand,
   },
   f: SomeEnum.SomeValue,
+  // Single line comment for VariableInKey
   [VariableInKey]: 'a value',
 }`
     );
-    expect(messages).to.eql(['Sort complete']);
   });
 });

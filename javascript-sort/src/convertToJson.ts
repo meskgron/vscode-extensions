@@ -11,7 +11,7 @@ export const convertJavascriptObjectStringToJson = (
 
   return javascriptObjectString
     .replace(
-      /^(\s*)(\/\/\s.+)$(?=(\s*)(\w+))/gm,
+      /^(\s*)(\/\/\s.+)$(?=(\s*)\[?(\w+)\]?)/gm,
       '$1$4__DUMMY_COMMENT_KEY__: "__DUMMY_COMMENT_VALUE__$2",'
     ) // single line comment `// some comment` becomes "nextKey__DUMMY_COMMENT_KEY__": "__DUMMY_COMMENT_VALUE__// some comment"
     .replace(/^(\s*)\.\.\.(\w+),(\s*)$/gm, spreadIncrementer) // spread operator ...z, becomes "___1z": "__DUMMY_SPREAD_VALUE__",
