@@ -157,6 +157,23 @@ describe('convertJavascriptObjectStringToJson', () => {
     );
   });
 
+  it('spread operator with multiple parts', () => {
+    // Arrange
+    const selectedText = `{ 
+      ...someSpread.secondPart.thirdPart,
+    }`;
+
+    // Act
+    const jsonString = convertJavascriptObjectStringToJson(selectedText);
+
+    // Assert
+    expect(JSON.stringify(jsonString)).to.equal(
+      JSON.stringify(`{ 
+      "!!!___1someSpread.secondPart.thirdPart": "__DUMMY_SPREAD_VALUE__"
+    }`)
+    );
+  });
+
   it('array', () => {
     // Arrange
     const selectedText = `{

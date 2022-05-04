@@ -9,6 +9,7 @@ describe('jsSort', () => {
   b: {
     ...zzzSomeSpread,
     ...aaaSomeSpread,
+    ...aComplexSpread.secondPart,
     c: 'mary',
     d: 'fred',
     // Single line comment for g
@@ -59,6 +60,7 @@ describe('jsSort', () => {
   b: {
     ...zzzSomeSpread,
     ...aaaSomeSpread,
+    ...aComplexSpread.secondPart,
     c: 'mary',
     d: 'fred',
     // Single line comment for g

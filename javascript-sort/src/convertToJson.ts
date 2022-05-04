@@ -14,7 +14,7 @@ export const convertJavascriptObjectStringToJson = (
       /^(\s*)(\/\/\s.+)$(?=(\s*)\[?(\w+)\]?)/gm,
       '$1$4__DUMMY_COMMENT_KEY__: "__DUMMY_COMMENT_VALUE__$2",'
     ) // single line comment `// some comment` becomes "nextKey__DUMMY_COMMENT_KEY__": "__DUMMY_COMMENT_VALUE__// some comment"
-    .replace(/^(\s*)\.\.\.(\w+),(\s*)$/gm, spreadIncrementer) // spread operator ...z, becomes "___1z": "__DUMMY_SPREAD_VALUE__",
+    .replace(/^(\s*)\.\.\.(\w[\w\.]*),(\s*)$/gm, spreadIncrementer) // spread operator ...z, becomes "___1z": "__DUMMY_SPREAD_VALUE__",
     .replace(/^(\s*)\[(\w+)\]:/gm, '$1"$2__DUMMY_VARIABLE_KEY__":') // variable in key [someVariableKey]: 'someValue', becomes "someVariableKey__DUMMY_VARIABLE_KEY__": "someValue",
     .replace(/^(\s*)(\w+),(\s*)$/gm, '$1$2: "__DUMMY_VALUE__",$3') // convert javscript object shorthand to longhand z, becomes z: "__DUMMY_VALUE__",
     .replace(
