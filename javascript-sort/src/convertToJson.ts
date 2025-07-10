@@ -25,9 +25,27 @@ export const convertJavascriptObjectStringToJson = (
       /([{,]\s*)([A-Za-z0-9_\-]+?)\s*:\s*([A-Za-z0-9_\-]+?[^\s,}]*)(?=([\s,}]))/gm,
       '$1$2: "__VARIABLE_VALUE__$3"'
     ) // javscript variable value z: SomeEnum.SomeValue, becomes z: "__VARIABLE_VALUE__SomeEnum.SomeValue",
+    
+    .replace(
+      /([{,]\s*)([A-Za-z0-9_\-]+?)\s*:\s*([A-Za-z0-9_\-]+?[^\n,}]*)(?=([\s,}]))/gm,
+      '$1$2: "__VARIABLE_VALUE__$3"'
+    ) // javscript variable value z: SomeEnum.SomeValue, becomes z: "__VARIABLE_VALUE__SomeEnum.SomeValue",
+    .replace(
+      /([{,]\s*)([A-Za-z0-9_\-]+?)\s*:\s*((?:\(\s*\)\s*=>\s*(?:\([^()]*\)|\[[^\]]*\]|[^,\n}]+)))/gm,
+      (_, sep, key, val) => {
+        const cleanVal = val
+          .replace(/\s+/g, " ") // 去掉多余换行/缩进 => 单行
+          .replace(/([{,]\s*)([A-Za-z0-9_\-]+?)\s*:/g, '$1"$2":')
+          .replace(/\\/g, "\\\\") // 转义反斜杠 \
+          .replace(/'/g, "\\'") // 转义双引号 "
+          .replace(/"/g, '\\"')
+          .trim();
+        return `${sep}"${key}": "__VARIABLE_VALUE__${cleanVal}"`;
+      }
+    )
     .replace(/([{,]\s*)([A-Za-z0-9_\-]+?)\s*:/g, '$1"$2":') // Put quotes around the javascript object key to make it JSON compatable
     .replace(/'/g, '"') // Replace single quote with double quote to make it JSON compatable
-    .replace(/\,(?!\s*?[\{\[\"\'\w])/g, ''); // Remove trailing comma from last object to make it JSON compatible
+    .replace(/\,(?!\s*?[\{\[\"\'\w])/g, ""); // Remove trailing comma from last object to make it JSON compatible
 };
 
 export const convertSelectedTextToJson = (selectedText: string) =>
